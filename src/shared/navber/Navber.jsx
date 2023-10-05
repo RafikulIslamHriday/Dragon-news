@@ -1,6 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import profile from "../../assets/user.png"
+import useAuth from "../../hook/useAuth";
 const Navber = () => {
+  const {user, logOut} = useAuth();
+  const handleLogOut = () =>{
+    logOut()
+    .then()
+    .catch()
+  }
+   
   const navLinks = (
     <>
       <li>
@@ -12,6 +20,7 @@ const Navber = () => {
       <li>
         <NavLink to="/career">Career</NavLink>
       </li>
+       <p>{user?.email}</p>
     </>
   );
   return (
@@ -52,7 +61,13 @@ const Navber = () => {
           <img src= {profile} />
         </div>
       </label>
-          <button className="btn">Button</button>
+        <div className="">
+          {
+            user? <button onClick={handleLogOut}  className="btn">LogOut</button> :  <Link to="/login">
+            <button className="btn">Login</button>
+            </Link>
+          }
+        </div>
         </div>
       </div>
     </div>
