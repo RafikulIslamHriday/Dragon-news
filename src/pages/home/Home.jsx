@@ -1,12 +1,16 @@
+import { useLoaderData } from "react-router-dom";
 import Header from "../../shared/header/Header";
 import LeftSideNav from "../../shared/leftSideNav/LeftSideNav";
 import Navber from "../../shared/navber/Navber";
 import RightSideNav from "../../shared/rightSideNav/RightSideNav";
 import BrackingNews from "./BrackingNews";
+import NewsCard from "./NewsCard";
 
  
 
 const Home = () => {
+    const news = useLoaderData();
+     
     return (
         <div >
             <Header></Header>
@@ -18,11 +22,13 @@ const Home = () => {
                 <div className="">
                     <LeftSideNav></LeftSideNav>
                 </div>
-                <div className="lg:col-span-2 border">
-                    <h2 className="text-2xl">
-                        News Comming soon  
-                    </h2>
+              {/* news container */}
+              <div className="lg:col-span-2 border">
+                     {
+                        news.map(item => <NewsCard key={item._id} news = {item}></NewsCard>)
+                     }
                 </div>
+                {/* right side navber */}
                 <div className="">
                     <RightSideNav></RightSideNav>
                 </div>

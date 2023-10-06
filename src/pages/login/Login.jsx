@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navber from "../../shared/navber/Navber";
 import useAuth from "../../hook/useAuth";
 import { useState } from "react";
@@ -7,6 +7,8 @@ const Login = () => {
     const {loginWithEmail} = useAuth()
     const [error, setError] = useState(null)
     const [success, setSuccess] = useState(null)
+    const location = useLocation();
+    const navigate = useNavigate()
     const handlelogin = e =>{
         setError(null)
         setSuccess(null)
@@ -19,6 +21,12 @@ const Login = () => {
         .then(res => {
             console.log(res.user);
             setSuccess("user login succesfully")
+            if(location?.state?.from){
+              navigate(location.state.from)
+            }else{
+              navigate('/')
+            }
+            
         })
         .catch(error => {
             setError(error.message);
